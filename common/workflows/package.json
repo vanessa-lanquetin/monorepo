@@ -1,0 +1,19 @@
+{
+  "name": "@vanessa-lanquetin/common-workflows",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "https://github.com/vanessa-lanquetin/todo-list",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vanessa-lanquetin/common-retrigger-all-build": "workspace:*"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "fs-extra": "^10.1.0"
+  }
+}
