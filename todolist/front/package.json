@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "postpublish": "EVENT_TYPE=todolist-front REPO=vanessa-lanquetin/monorepo npx @vanessa-lanquetin/common-trigger-workflow"
   },
   "author": "",
   "license": "ISC",

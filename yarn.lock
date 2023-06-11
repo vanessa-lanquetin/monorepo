@@ -2170,6 +2170,8 @@ __metadata:
     cors: ^2.8.5
     express: ^4.18.2
     nodemon: ^2.0.22
+  bin:
+    todolist-server: bin/www
   languageName: unknown
   linkType: soft
 
