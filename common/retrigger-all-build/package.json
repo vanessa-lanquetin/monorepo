@@ -1,0 +1,12 @@
+{
+  "name": "@vanessa-lanquetin/common-retrigger-all-build",
+  "version": "1.0.0",
+  "description": "",
+  "repository": "https://github.com/vanessa-lanquetin/todo-list",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "author": "",
+  "license": "ISC"
+}
