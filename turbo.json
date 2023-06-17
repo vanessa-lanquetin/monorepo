@@ -18,14 +18,10 @@
       ],
       "outputs": []
     },
-    "lint": {
-      "outputs": []
-    },
     "deploy": {
       "dependsOn": [
         "build",
-        "test",
-        "lint"
+        "test"
       ],
       "outputs": []
     }

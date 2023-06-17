@@ -1,1 +1,0 @@
-import{_ as c,o,c as s,p as t,a,b as _}from"./index-ff92650d.js";const d={},n=e=>(t("data-v-ad2dcbbc"),e=e(),a(),e),p={class:"about"},i=n(()=>_("h1",null,"This is an about page",-1)),r=[i];function b(e,u){return o(),s("div",p,r)}const h=c(d,[["render",b],["__scopeId","data-v-ad2dcbbc"]]);export{h as default};
