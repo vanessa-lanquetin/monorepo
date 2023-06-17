@@ -5,11 +5,13 @@
 
 name: "Create mobile app todolist-front"
 
-
+# Only trigger, when the build workflow succeeded
 on:
-  push:
-    branches:    
-      - '*' 
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Version to build'     
+        required: true
 
 jobs:
   update:
@@ -20,8 +22,6 @@ jobs:
     steps:
       - name: Receive event
         run: echo -e "ref:${{ github.ref }}\nversion:${{ inputs.package_version }}\n"
-
-
 
       - name: "Checkout"
         uses: actions/checkout@v2
