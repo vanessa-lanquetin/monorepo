@@ -48,7 +48,7 @@ app
     res.status(404)
     next(new Error())
   })
-  .use(express.static(path.resolve(__dirname, '..')))
+  .use(express.static(path.resolve(__dirname, '..', 'dist')))
   .use((req, res) => {
     res.type('.html').sendFile(path.resolve(__dirname, '..', 'index.html'))
   })
