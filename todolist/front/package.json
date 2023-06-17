@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/todolist-front",
-  "version": "1.0.0",
+  "version": "1.0.1-beta.0",
   "description": "",
   "main": "index.js",
   "publishAppID": "648d19e43914ca64208043c7",
