@@ -2,10 +2,10 @@ const pathfs = require("path");
 
 /** @type {import('@iryu54/stack-monitor').StackFile} */
 const stack = (stackMonitor) => {
-  stackMonitor.onLaunch((service) => console.log(`▶️ ${service.label}`));
-  stackMonitor.onServiceCrash((service) => console.log(`❌ ${service.label}`));
-  stackMonitor.onServiceRestart((service) => console.log(`🔃 ${service.label}`));
-  stackMonitor.onServiceKill((service) => console.log(`❌ ${service.label}`));
+  stackMonitor.onLaunch((service) => console.log(`▶️ ${service?.label}`));
+  stackMonitor.onServiceCrash((service) => console.log(`❌ ${service?.label}`));
+  stackMonitor.onServiceRestart((service) => console.log(`🔃 ${service?.label}`));
+  stackMonitor.onServiceKill((service) => console.log(`❌ ${service?.label}`));
   return {
     services: [
       {
@@ -13,6 +13,7 @@ const stack = (stackMonitor) => {
         spawnCmd: "npm",
         spawnArgs: ["run", "serve"],
         urls: ["http://localhost:4215"],
+        rootPath: pathfs.resolve(__dirname, ".."),
         spawnOptions: {
           cwd: pathfs.resolve(__dirname, "server"),
           env: Object.assign(
@@ -29,6 +30,7 @@ const stack = (stackMonitor) => {
         spawnCmd: "npm",
         spawnArgs: ["run", "serve"],
         urls: ["http://localhost:3000"],
+        rootPath: pathfs.resolve(__dirname, ".."),
         spawnOptions: {
           cwd: pathfs.resolve(__dirname, "front"),
           env: Object.assign(

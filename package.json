@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@iryu54/stack-monitor": "^1.8.21",
+    "@iryu54/stack-monitor": "1.11.12",
     "@lerna-lite/cli": "^1.6.0",
     "@lerna-lite/exec": "^1.6.0",
     "fs-extra": "^10.1.0"
