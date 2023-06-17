@@ -26,7 +26,7 @@ jobs:
       - name: Use coturiv/setup-ionic
         uses: coturiv/setup-ionic@v1
         with:
-          cordova-version: 8
+          java-version: 17
 
       - name: "Checkout"
         uses: actions/checkout@v2
