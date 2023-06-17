@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8-beta.2](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.8-beta.1...v1.0.8-beta.2) (2023-06-17)
+
+### Bug Fixes
+
+* **meteo:** fix path of trigger-workflow ([8bac91b](https://github.com/vanessa-lanquetin/monorepo/commit/8bac91bac398370ba7747b23e86a3f19834b0f44))
+
 ## [1.0.8-beta.1](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.8-beta.0...v1.0.8-beta.1) (2023-06-17)
 
 ### Bug Fixes
