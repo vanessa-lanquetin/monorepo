@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/common-workflows",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "repository": "https://github.com/vanessa-lanquetin/monorepo",
   "main": "src/index.js",
