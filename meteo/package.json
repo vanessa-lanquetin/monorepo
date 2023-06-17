@@ -10,7 +10,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "format": "prettier --write src/",
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "postpublish": "EVENT_TYPE=meteo REPO=vanessa-lanquetin/monorepo node ../../common/trigger-workflow/src/index.js"
   },
   "repository": {
     "type": "git",
