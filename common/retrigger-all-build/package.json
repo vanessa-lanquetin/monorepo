@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/common-retrigger-all-build",
-  "version": "1.0.3",
+  "version": "1.0.5-beta.0",
   "description": "",
   "repository": "https://github.com/vanessa-lanquetin/monorepo",
   "main": "src/index.js",

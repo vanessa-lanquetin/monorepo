@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.5-beta.0](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.4...v1.0.5-beta.0) (2023-06-17)
+
+### Bug Fixes
+
+* add workflows ([a4b8b08](https://github.com/vanessa-lanquetin/monorepo/commit/a4b8b08c41b3a744fbb29da5490a2e5ac6b138f8))
+* add workflows ([ff5f07e](https://github.com/vanessa-lanquetin/monorepo/commit/ff5f07e761cded528aab80a611f06155fd5d7deb))
+* add workflows ([b17c61d](https://github.com/vanessa-lanquetin/monorepo/commit/b17c61d516a56cb3292a4add3d0177edf7ccda5f))
+* add workflows ([9784210](https://github.com/vanessa-lanquetin/monorepo/commit/9784210fcac30e2dae8b09b4da8d648339c4e410))
+* add workflows ([515d71d](https://github.com/vanessa-lanquetin/monorepo/commit/515d71dc29d1f64ed2e6e37bd31183c24a220524))
+* add workflows ([24edf6b](https://github.com/vanessa-lanquetin/monorepo/commit/24edf6b1b84b49b858677d5954308cdc307efe10))
+* add workflows ([e7adf59](https://github.com/vanessa-lanquetin/monorepo/commit/e7adf5924c99e365d9b880cb5e5b00a9668df3d8))
+
+## [1.0.1-beta.1](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.1-beta.0...v1.0.1-beta.1) (2023-06-17)
+
+### Bug Fixes
+
+* add workflows ([577186e](https://github.com/vanessa-lanquetin/monorepo/commit/577186e13e2b6d67f695ad8ba49d6a006666332e))
+* **deploy:** add workflow ([00fc335](https://github.com/vanessa-lanquetin/monorepo/commit/00fc335ab43e1e51b92626af050e69672f9e3273))
+
 ## [1.0.4](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.3...v1.0.4) (2023-06-17)
 
 ### Bug Fixes
