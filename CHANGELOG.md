@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.3...v1.0.4) (2023-06-17)
+
+### Bug Fixes
+
+* add workflows ([c230fc2](https://github.com/vanessa-lanquetin/monorepo/commit/c230fc27f133ba74264fed3cbe58fab9257e2f67))
+
 ## [1.0.3](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.2...v1.0.3) (2023-06-17)
 
 ### Bug Fixes
