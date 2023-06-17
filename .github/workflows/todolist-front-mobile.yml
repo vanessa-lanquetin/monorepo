@@ -5,13 +5,11 @@
 
 name: "Create mobile app todolist-front"
 
-# Only trigger, when the build workflow succeeded
+
 on:
-  workflow_dispatch:
-    inputs:
-      package_version:
-        description: 'Version to build'     
-        required: true
+  push:
+    branches:    
+      - '*' 
 
 jobs:
   update:
