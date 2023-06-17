@@ -1,0 +1,23 @@
+{
+  "name": "@vanessa-lanquetin/common-check-monorepo",
+  "version": "1.0.5-beta.0",
+  "description": "",
+  "repository": "https://github.com/vanessa-lanquetin/monorepo",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "jest",
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@jest/globals": "^28.1.3",
+    "@types/jest": "^28.1.6",
+    "bluebird": "^3.7.2",
+    "fs-extra": "^10.1.0",
+    "jest": "^28.1.3"
+  },
+  "devDependencies": {
+    "@vanessa-lanquetin/common-retrigger-all-build": "workspace:*"
+  }
+}

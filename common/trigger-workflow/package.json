@@ -1,0 +1,13 @@
+{
+  "name": "@vanessa-lanquetin/common-trigger-workflow",
+  "version": "1.0.5-beta.0",
+  "description": "",
+  "repository": "https://github.com/vanessa-lanquetin/monorepo",
+  "main": "src/index.js",
+  "bin": "bin/www",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@vanessa-lanquetin/common-retrigger-all-build": "workspace:*"
+  }
+}

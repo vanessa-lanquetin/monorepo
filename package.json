@@ -1,0 +1,34 @@
+{
+  "name": "@vanessa-lanquetin/monorepo",
+  "version": "1.0.0",
+  "description": "## Install",
+  "main": "index.js",
+  "scripts": {
+    "serve:todolist": "cd todolist && stack-monitor ./stack.js",
+    "check:monorepo": "cd common/check-monorepo && npm run start",
+    "ci:generate": "node ./common/workflows/src/index.js",
+    "lint": "node runScriptWithEnvs \"turbo run lint\"",
+    "test": "node runScriptWithEnvs \"turbo run test\"",
+    "build": "node runScriptWithEnvs \"turbo run build\""
+  },
+  "author": "",
+  "license": "ISC",
+  "workspaces": {
+    "packages": [
+      "./todolist/*",
+      "./common/*"
+    ]
+  },
+  "dependencies": {
+    "@iryu54/stack-monitor": "1.11.12",
+    "@lerna-lite/cli": "^1.6.0",
+    "@lerna-lite/exec": "^1.6.0",
+    "fs-extra": "^10.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.1.4",
+    "octokit": "^2.0.19",
+    "turbo": "^1.10.3"
+  },
+  "packageManager": "yarn@3.6.0"
+}
