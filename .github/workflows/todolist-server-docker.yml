@@ -34,7 +34,7 @@ jobs:
         with:
           workdir: todolist/server
           pre: echo ::save-state name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-          name: vanessa-lanquetin/todo-list/todolist-server
+          name: vanessa-lanquetin/monorepo/todolist-server
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.NPM_TOKEN }}
           registry: docker.pkg.github.com
@@ -47,7 +47,7 @@ jobs:
         with:
           workdir: todolist/server
           pre: echo ::save-state name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-          name: vanessa-lanquetin/todo-list/todolist-server
+          name: vanessa-lanquetin/monorepo/todolist-server
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.NPM_TOKEN }}
           registry: docker.pkg.github.com
