@@ -2,7 +2,7 @@
   "name": "@vanessa-lanquetin/common-check-monorepo",
   "version": "1.0.1",
   "description": "",
-  "repository": "https://github.com/vanessa-lanquetin/todo-list",
+  "repository": "https://github.com/vanessa-lanquetin/monorepo",
   "main": "src/index.js",
   "scripts": {
     "start": "jest",

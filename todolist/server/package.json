@@ -8,7 +8,7 @@
     "start": "node bin/www",
     "serve": "nodemon bin/www --ext js,json --ignore files",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "postpublish": "EVENT_TYPE=todolist-server REPO=vanessa-lanquetin/todo-list npx @vanessa-lanquetin/common-trigger-workflow"
+    "postpublish": "EVENT_TYPE=todolist-server REPO=vanessa-lanquetin/monorepo npx @vanessa-lanquetin/common-trigger-workflow"
   },
   "author": "",
   "license": "ISC",
