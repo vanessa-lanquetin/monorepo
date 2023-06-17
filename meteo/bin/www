@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+const express = require("express")();
+express.use(require('./server'))
+  .listen(process.env.PORT || 3203, () => {
+    console.info("Magic happens on port ", process.env.PORT || 3203);
+  });
