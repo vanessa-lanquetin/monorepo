@@ -12,7 +12,7 @@
     "capacitor": "cap",
     "capacitor:android:generate:keystore": "keytool -genkey -v -keystore my-release-key.keystore -alias appstore -keyalg RSA -keysize 2048 -validity 1000000 && keytool -importkeystore -srckeystore my-release-key.keystore -destkeystore my-release-key.keystore -deststoretype pkcs12",
     "capacitor:build": "cd android && sh ./build.sh",
-    "postpublish": "EVENT_TYPE=todolist-front REPO=vanessa-lanquetin/todo-list npx @vanessa-lanquetin/common-trigger-workflow"
+    "postpublish": "EVENT_TYPE=todolist-front REPO=vanessa-lanquetin/todo-list node ../../common/trigger-workflow/src/index.js"
   },
   "author": "",
   "license": "ISC",
