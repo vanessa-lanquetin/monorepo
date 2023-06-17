@@ -1,0 +1,49 @@
+{
+  "name": "@vanessa-lanquetin/meteo",
+  "version": "1.0.7",
+  "description": "",
+  "main": "meteo.js",
+  "bin": "bin/www",
+  "scripts": {
+    "serve": "vite",
+    "serve:server": "nodemon bin/www --ext js,json",
+    "build": "vite build",
+    "preview": "vite preview",
+    "format": "prettier --write src/",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vanessa-lanquetin/Meteo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vanessa-lanquetin/Meteo/issues"
+  },
+  "homepage": "https://github.com/vanessa-lanquetin/Meteo#readme",
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.2.0",
+    "@vanessa-lanquetin/common-retrigger-all-build": "workspace:*",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "@vue/eslint-config-prettier": "^7.1.0",
+    "eslint": "^8.39.0",
+    "eslint-plugin-vue": "^9.11.0",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "vite": "^4.3.9"
+  },
+  "dependencies": {
+    "axios": "^1.4.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "debounce": "^1.2.1",
+    "express": "^4.18.2",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^7.0.0",
+    "sass": "^1.63.4",
+    "vite-plugin-environment": "^1.1.3",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.2"
+  }
+}
