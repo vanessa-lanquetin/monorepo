@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
 
 <template>
   <div class="app-container">
@@ -13,6 +9,10 @@ import HelloWorld from './components/HelloWorld.vue'
     </footer>
   </div>
 </template>
+
+<script setup>
+import { RouterView } from 'vue-router'
+</script>
 
 <style scoped lang="scss">
 .app-container {
