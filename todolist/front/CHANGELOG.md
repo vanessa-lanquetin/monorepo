@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/vanessa-lanquetin/todo-list/compare/v1.0.1-beta.0...v1.0.1) (2023-06-17)
+
+### Bug Fixes
+
+* add workflows ([91be6f8](https://github.com/vanessa-lanquetin/todo-list/commit/91be6f8af32b911f58737fe57e5c426846db4a09))
+* add workflows ([fd74b50](https://github.com/vanessa-lanquetin/todo-list/commit/fd74b506afd048c0e4204023f5531c8c23d3c77e))
+* add workflows ([a88ff4d](https://github.com/vanessa-lanquetin/todo-list/commit/a88ff4d3e55999b51d41279609009d8a6bc74bc4))
+
 ## 1.0.1-beta.0 (2023-06-17)
 
 ### Bug Fixes

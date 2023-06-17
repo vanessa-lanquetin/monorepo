@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/common-check-monorepo",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.1",
   "description": "",
   "repository": "https://github.com/vanessa-lanquetin/todo-list",
   "main": "src/index.js",
