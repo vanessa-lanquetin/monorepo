@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/todolist-server",
-  "version": "1.0.5-beta.0",
+  "version": "1.0.5",
   "description": "",
   "main": "index.js",
   "bin": "bin/www",
