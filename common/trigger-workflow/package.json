@@ -1,8 +1,8 @@
 {
   "name": "@vanessa-lanquetin/common-trigger-workflow",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.3",
   "description": "",
-  "repository": "https://github.com/vanessa-lanquetin/todo-list",
+  "repository": "https://github.com/vanessa-lanquetin/monorepo",
   "main": "src/index.js",
   "bin": "bin/www",
   "author": "",

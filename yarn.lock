@@ -2291,9 +2291,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@vanessa-lanquetin/todo-list@workspace:.":
+"@vanessa-lanquetin/monorepo@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@vanessa-lanquetin/todo-list@workspace:."
+  resolution: "@vanessa-lanquetin/monorepo@workspace:."
   dependencies:
     "@iryu54/stack-monitor": 1.11.12
     "@lerna-lite/cli": ^1.6.0

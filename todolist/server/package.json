@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/todolist-server",
-  "version": "1.0.1-beta.0",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "bin": "bin/www",
@@ -8,7 +8,7 @@
     "start": "node bin/www",
     "serve": "nodemon bin/www --ext js,json --ignore files",
     "test": "echo \"Error: no test specified\" && exit 0",
-    "postpublish": "EVENT_TYPE=todolist-server REPO=vanessa-lanquetin/todo-list npx @vanessa-lanquetin/common-trigger-workflow"
+    "postpublish": "EVENT_TYPE=todolist-server REPO=vanessa-lanquetin/monorepo node ../../common/trigger-workflow/src/index.js"
   },
   "author": "",
   "license": "ISC",
