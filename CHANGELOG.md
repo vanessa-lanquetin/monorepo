@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.8-beta.4](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.8-beta.3...v1.0.8-beta.4) (2023-06-17)
+
+### Bug Fixes
+
+* **meteo:** includes dist in npm package ([a360c93](https://github.com/vanessa-lanquetin/monorepo/commit/a360c93e4adf5468170e57413d0808454ffcd1ea))
+
 ## [1.0.8-beta.3](https://github.com/vanessa-lanquetin/monorepo/compare/v1.0.8-beta.2...v1.0.8-beta.3) (2023-06-17)
 
 ### Bug Fixes

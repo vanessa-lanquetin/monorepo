@@ -1,6 +1,6 @@
 {
   "name": "@vanessa-lanquetin/meteo",
-  "version": "1.0.8-beta.3",
+  "version": "1.0.8-beta.4",
   "description": "",
   "main": "meteo.js",
   "bin": "bin/www",
