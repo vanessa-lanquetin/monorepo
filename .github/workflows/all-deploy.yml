@@ -6,13 +6,15 @@
 name: Release
 
 on:
-  push:
-    branches:    
-      - '*' 
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+      - master
 
 jobs:
   publish:
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
