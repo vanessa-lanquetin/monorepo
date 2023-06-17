@@ -1,47 +1,75 @@
-name: Checks
+name: "Create mobile app {{NAME_ROUTE}}"
+
+# Only trigger, when the build workflow succeeded
 on:
-  pull_request:
-    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Version to build'     
+        required: true
 
 jobs:
-  checks:
+  update:
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
-
     steps:
-    - name: "Checkout"
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+      - name: Receive event
+        run: echo -e "ref:${{ github.ref }}\nversion:${{ inputs.package_version }}\n"
+        
+      - name: Use coturiv/setup-ionic
+        uses: coturiv/setup-ionic@v1
+        with:
+          cordova-version: 8
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-        registry-url: 'https://npm.pkg.github.com/'
-        cache: 'yarn'
+      - name: "Checkout"
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
-    - name: Ensure access
-      run: npm whoami --registry https://npm.pkg.github.com/
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: 'https://npm.pkg.github.com/'
+          cache: 'yarn'
 
-    - name: Config git user
-      run: |
-        git config --global user.name "${{ github.actor }}"
-        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+      - name: insert credentials
+        run: | 
+          echo -e "\n//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" >> .npmrc
+          echo -e "\n@vanessa-lanquetin:registry=https://npm.pkg.github.com" >> .npmrc
 
-    - name: Install dependencies if needed.
-      if: steps.lerna-yarn-cache.outputs.cache-hit != 'true'
-      run: yarn install --immutable
+      - name: Ensure access
+        run: npm whoami --registry https://npm.pkg.github.com/
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-    - name: Lint
-      run: yarn run lint
+      - name: Install dependencies
+        run: yarn install --immutable
 
-    - name: Tests
-      run: yarn run test
+      - name: Build
+        run: npm run build -- --filter={{NAME_ROUTE}}
 
-    - name: Build
-      run: yarn run build
+      - name: Sync capacitor
+        run: |
+          cd {{LOCATION}} && pwd && ls -k
+
+      - name: Sync capacitor
+        run: cd {{LOCATION}} &&  node_modules/.bin/cap sync
+
+      - name: Build apk
+        run: cd {{LOCATION}}/android && ./gradlew assembleRelease
+
+      - name: Android apksigner
+        uses: r0adkll/sign-android-release@v1
+        with:
+          releaseDirectory: {{LOCATION}}/android/app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEY_STORE_FILE }}
+          alias: ${{ secrets.KEY_STORE_ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+      - name: Upload APK
+        run: |
+          curl -X POST -H "authorization: ${{ secrets.JWT_PRIVATE_KEY }}" -F file=@{{LOCATION}}/android/app/build/outputs/apk/release/app-release-unsigned-signed.apk -F version=${{ inputs.package_version }} https://appstore-core.vanessalanquetin.fr/api/apps/{{APPID}}/upload --fail

@@ -3,18 +3,13 @@
 # If you must edit this file, edit files in .github/workflow-*.yml
 # Then launch "yarn ci:generate"
 
-name: Release
-
+name: Checks
 on:
   pull_request:
-    types: [closed]
-    branches:
-      - develop
-      - master
+    types: [opened, synchronize, reopened, edited]
 
 jobs:
-  publish:
-    if: github.event.pull_request.merged == true
+  checks:
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -22,7 +17,7 @@ jobs:
 
     steps:
     - name: "Checkout"
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
       with:
         fetch-depth: 0
 
@@ -43,7 +38,8 @@ jobs:
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-    - name: Install dependencies
+    - name: Install dependencies if needed.
+      if: steps.lerna-yarn-cache.outputs.cache-hit != 'true'
       run: yarn install --immutable
 
     - name: Lint
@@ -54,26 +50,3 @@ jobs:
 
     - name: Build
       run: yarn run build
-
-    - name: "Version and publish"
-      env:
-        GH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: |
-        git config user.name "${{ github.actor }}"
-        git config user.email "${{ github.actor}}@users.noreply.github.com"
-
-        if [ ${GITHUB_REF##*/} = develop ]; then
-          npx lerna version --conventional-commits --conventional-prerelease --preid beta --yes
-          npx lerna publish from-package --yes --dist-tag prerelease --registry https://npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }} --force-publish
-        else
-          npx lerna version --conventional-commits --conventional-graduate --yes
-          npx lerna publish from-package --yes --registry https://npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }} --force-publish
-        fi
-    - uses: everlytic/branch-merge@1.1.2
-      if:   github.ref == 'master'
-      with:
-        github_token: ${{ secrets.NPM_TOKEN }}
-        source_ref: '${{ github.ref }}'
-        target_branch: 'develop'
-        commit_message_template: '[Automated] Merged {source_ref} into target {target_branch}'

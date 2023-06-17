@@ -3,23 +3,29 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "publishAppID": "648d19e43914ca64208043c7",
   "scripts": {
     "serve": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "postpublish": "EVENT_TYPE=todolist-front REPO=vanessa-lanquetin/monorepo npx @vanessa-lanquetin/common-trigger-workflow"
+    "capacitor": "cap",
+    "capacitor:android:generate:keystore": "keytool -genkey -v -keystore my-release-key.keystore -alias appstore -keyalg RSA -keysize 2048 -validity 1000000 && keytool -importkeystore -srckeystore my-release-key.keystore -destkeystore my-release-key.keystore -deststoretype pkcs12",
+    "capacitor:build": "cd android && sh ./build.sh",
+    "postpublish": "EVENT_TYPE=todolist-front REPO=vanessa-lanquetin/todo-list npx @vanessa-lanquetin/common-trigger-workflow"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@capacitor/android": "^5.0.5",
+    "@capacitor/core": "^5.0.5",
     "axios": "^1.4.0",
     "sass": "^1.63.3",
     "vue": "^3.3.2",
     "vue-router": "^4.2.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^5.0.5",
     "@rushstack/eslint-patch": "^1.2.0",
     "@vanessa-lanquetin/common-retrigger-all-build": "workspace:*",
     "@vitejs/plugin-vue": "^4.2.3",

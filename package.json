@@ -7,9 +7,9 @@
     "serve:todolist": "cd todolist && stack-monitor ./stack.js",
     "check:monorepo": "cd common/check-monorepo && npm run start",
     "ci:generate": "node ./common/workflows/src/index.js",
-    "lint": "node runScriptWithEnv \"turbo run lint\"",
-    "test": "node runScriptWithEnv \"turbo run test\"",
-    "build": "node runScriptWithEnv \"turbo run build\""
+    "lint": "node runScriptWithEnvs \"turbo run lint\"",
+    "test": "node runScriptWithEnvs \"turbo run test\"",
+    "build": "node runScriptWithEnvs \"turbo run build\""
   },
   "author": "",
   "license": "ISC",
@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@iryu54/stack-monitor": "^1.8.21",
+    "@iryu54/stack-monitor": "1.11.12",
     "@lerna-lite/cli": "^1.6.0",
     "@lerna-lite/exec": "^1.6.0",
     "fs-extra": "^10.1.0"
