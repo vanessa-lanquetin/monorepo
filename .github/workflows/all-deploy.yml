@@ -5,12 +5,12 @@
 
 name: Release
 
+
 on:
-  pull_request:
-    types: [closed]
-    branches:
-      - develop
+  push:
+    branches: 
       - master
+      - develop
 
 jobs:
   publish:
