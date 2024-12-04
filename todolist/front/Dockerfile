@@ -1,11 +1,29 @@
-FROM alpine:3.14
-RUN apk --no-cache add nodejs npm yarn
-ARG NPM_TOKEN 
-ARG PACKAGE_VERSION
-WORKDIR /core
-RUN echo -e "\n//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
-RUN echo -e "\n@vanessa-lanquetin:registry=https://npm.pkg.github.com" >> .npmrc
-RUN yarn add "@vanessa-lanquetin/todolist-front@${PACKAGE_VERSION}"
-RUN rm -f .npmrc
+FROM ghcr.io/clabroche/monorepo/infra-docker-build-node AS prune
+WORKDIR /app
+COPY . .
+RUN yarn dlx turbo prune @vanessa-lanquetin/todolist-front --docker
+
+FROM ghcr.io/clabroche/monorepo/infra-docker-build-node AS builder
+WORKDIR /app
+COPY .gitignore .gitignore
+COPY --from=prune /app/out/json/ .
+COPY --from=prune /app/.turbo/ .
+COPY --from=prune /app/out/yarn.lock ./yarn.lock
+COPY --from=prune /app/.yarn/cache .yarn/cache
+RUN yarn workspaces focus @vanessa-lanquetin/todolist-front
+COPY --from=prune /app/out/full/ .
+ARG TURBO_TEAM
+ENV TURBO_TEAM=$TURBO_TEAM
+ARG TURBO_TOKEN
+ENV TURBO_TOKEN=$TURBO_TOKEN
+RUN yarn dlx turbo run build --filter=@vanessa-lanquetin/todolist-front
+RUN yarn workspaces focus @vanessa-lanquetin/todolist-front --production
+
+FROM ghcr.io/clabroche/monorepo/infra-docker-base-node-20
+WORKDIR /app
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 clabroche
+USER clabroche
+COPY --from=builder --chown=clabroche:nodejs /app .
 
 CMD node node_modules/@vanessa-lanquetin/todolist-front/server.js

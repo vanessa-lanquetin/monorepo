@@ -1,14 +1,29 @@
-FROM alpine:3.14
-RUN apk add --upgrade --no-cache vips-dev build-base --repository https://alpine.global.ssl.fastly.net/alpine/v3.10/community/
-RUN apk --no-cache add gcc g++ make python3 nodejs npm yarn vips udev ttf-freefont chromium harfbuzz nss musl
-ARG NPM_TOKEN 
-ARG PACKAGE_VERSION
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
-WORKDIR /core
-RUN echo -e "\n//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
-RUN echo -e "\n@vanessa-lanquetin:registry=https://npm.pkg.github.com" >> .npmrc
-RUN yarn add "@vanessa-lanquetin/todolist-server@${PACKAGE_VERSION}"
-RUN rm -f .npmrc
+FROM ghcr.io/clabroche/monorepo/infra-docker-build-node AS prune
+WORKDIR /app
+COPY . .
+RUN yarn dlx turbo prune @vanessa-lanquetin/todolist-server --docker
 
-# Add your source files
+FROM ghcr.io/clabroche/monorepo/infra-docker-build-node AS builder
+WORKDIR /app
+COPY .gitignore .gitignore
+COPY --from=prune /app/out/json/ .
+COPY --from=prune /app/.turbo/ .
+COPY --from=prune /app/out/yarn.lock ./yarn.lock
+COPY --from=prune /app/.yarn/cache .yarn/cache
+RUN yarn workspaces focus @vanessa-lanquetin/todolist-server
+COPY --from=prune /app/out/full/ .
+ARG TURBO_TEAM
+ENV TURBO_TEAM=$TURBO_TEAM
+ARG TURBO_TOKEN
+ENV TURBO_TOKEN=$TURBO_TOKEN
+RUN yarn dlx turbo run build --filter=@vanessa-lanquetin/todolist-server
+RUN yarn workspaces focus @vanessa-lanquetin/todolist-server --production
+
+FROM ghcr.io/clabroche/monorepo/infra-docker-base-node-20
+WORKDIR /app
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 clabroche
+USER clabroche
+COPY --from=builder --chown=clabroche:nodejs /app .
+
 CMD ./node_modules/.bin/todolist-server
