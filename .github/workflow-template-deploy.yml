@@ -8,28 +8,8 @@ on:
       - staging
 
 jobs:
-  runner:
-    runs-on: ubuntu-latest
-    outputs:
-      runner: ${{ steps.set-runner.outputs.runner }}
-    steps:
-      - name: Set runner
-        id: set-runner
-        run: |
-          runners=$(curl -s -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.DOCKER_RUNNER_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/actions/runners")
-          available=$(echo "$runners" | jq '.runners[] | select(.status == "online" and .busy == false and .labels[] .name == "self-hosted")')
-          echo $runners
-          echo $available
-          if [ -n "$available" ]; then
-            echo "runner=self-hosted" >> $GITHUB_OUTPUT
-            echo self-hosted
-          else
-            echo "runner=ubuntu-latest" >> $GITHUB_OUTPUT
-            echo ubuntu-latest
-          fi
   publish:
-    needs: runner
-    runs-on: ${{ needs.runner.outputs.runner }}
+    runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
       TURBO_TEAM: ${{ vars.TURBO_TEAM }}

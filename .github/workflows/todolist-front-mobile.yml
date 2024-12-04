@@ -17,6 +17,9 @@
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Receive event
+        run: echo -e "ref:${{ github.ref }}\nversion:${{ inputs.package_version }}\n"
+
       - name: "Checkout"
         uses: actions/checkout@v3
         with:
@@ -26,6 +29,7 @@
         name: Read package.json
         run: |
           echo packageJSON=$(cat todolist/front/package.json) >> $GITHUB_OUTPUT
+
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v4
@@ -51,6 +55,7 @@
         run: npm run build -- --filter=@vanessa-lanquetin/todolist-front
 
       - name: Sync capacitor
+<<<<<<< HEAD
         working-directory: todolist/front
         run: yarn cap sync
 
@@ -77,6 +82,15 @@
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
         id: sign_app
+=======
+        run: cd todolist/front &&  node_modules/.bin/cap sync
+
+      - name: Build apk
+        run: cd todolist/front/android && ./gradlew assembleRelease
+
+      - name: Android apksigner
+        uses: r0adkll/sign-android-release@v1
+>>>>>>> develop
         with:
           releaseDirectory: todolist/front/android/app/build/outputs/apk/release
           signingKeyBase64: ${{ secrets.KEY_STORE_FILE }}
