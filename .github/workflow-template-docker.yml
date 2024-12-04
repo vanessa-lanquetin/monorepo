@@ -29,7 +29,7 @@ jobs:
         with:
           workdir: {{LOCATION}}
           pre: echo ::save-state name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-          name: vanessa-lanquetin/monorepo/{{NAME_ROUTE}}
+          name: clabroche/docker-registry/{{NAME_ROUTE}}
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.NPM_TOKEN }}
           registry: docker.pkg.github.com
@@ -42,7 +42,7 @@ jobs:
         with:
           workdir: {{LOCATION}}
           pre: echo ::save-state name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-          name: vanessa-lanquetin/monorepo/{{NAME_ROUTE}}
+          name: clabroche/docker-registry/{{NAME_ROUTE}}
           username: ${{ secrets.DOCKER_HUB_USER }}
           password: ${{ secrets.NPM_TOKEN }}
           registry: docker.pkg.github.com
