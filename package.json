@@ -4,7 +4,8 @@
   "description": "## Install",
   "main": "index.js",
   "scripts": {
-    "serve:todolist": "cd todolist && stack-monitor ./stack.js",
+    "serve:todolist": "cd todolist && HTTP_PORT=4545 stack-monitor ./stack.js",
+    "serve:meteo": "cd meteo && HTTP_PORT=4546 stack-monitor ./stack.js",
     "check:monorepo": "cd common/check-monorepo && npm run start",
     "ci:generate": "node ./common/workflows/src/index.js",
     "lint": "node runScriptWithEnvs \"turbo run lint\"",
@@ -16,7 +17,8 @@
   "workspaces": {
     "packages": [
       "./todolist/*",
-      "./common/*"
+      "./common/*",
+      "./meteo"
     ]
   },
   "dependencies": {
