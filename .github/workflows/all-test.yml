@@ -3,28 +3,31 @@
 # If you must edit this file, edit files in .github/workflow-*.yml
 # Then launch "yarn ci:generate"
 
-name: Checks
+name: Tests
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    branches: 
+      - '!master'
+      - '!develop'
+      - '*'
 
 jobs:
   checks:
     runs-on: ubuntu-latest
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
     steps:
     - name: "Checkout"
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
     - name: Setup Node.js environment
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: 16
+        node-version: 20
         registry-url: 'https://npm.pkg.github.com/'
         cache: 'yarn'
 
@@ -38,8 +41,7 @@ jobs:
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor }}@users.noreply.github.com"
 
-    - name: Install dependencies if needed.
-      if: steps.lerna-yarn-cache.outputs.cache-hit != 'true'
+    - name: Install dependencies.
       run: yarn install --immutable
 
     - name: Lint

@@ -1,50 +1,71 @@
-name: "Create backend container {{NAME_ROUTE}}"
 
-# Only trigger, when the build workflow succeeded
-on:
-  workflow_dispatch:
-    inputs:
-      package_version:
-        description: 'Version to build'     
-        required: true
-
-jobs:
-  update:
+  {{NAME_ROUTE_SANITIZED}}-docker:
+    needs: [publish]
     runs-on: ubuntu-latest
+    if: contains(needs.publish.outputs.changed, '{{NAME_ROUTE}}')
     env:
       TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+      TURBO_TEAM: ${{ vars.TURBO_TEAM }}
     steps:
-      - name: Receive event
-        run: echo -e "ref:${{ github.ref }}\nversion:${{ inputs.package_version }}\n"
-
-      - name: Checkout
-        uses: actions/checkout@master
+      - name: "Checkout"
+        uses: actions/checkout@v3
         with:
-          ref: ${{ github.ref }}
+          fetch-depth: 0
 
-      - name: Publish to Registry Production
-        if: "!contains(inputs.package_version, 'beta')"
-        uses: elgohr/Publish-Docker-Github-Action@master
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
         with:
-          workdir: {{LOCATION}}
-          pre: echo ::save-state name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-          name: clabroche/docker-registry/{{NAME_ROUTE}}
-          username: ${{ secrets.DOCKER_HUB_USER }}
+          node-version: 20
+          registry-url: 'https://npm.pkg.github.com/'
+
+      - run: mkdir -p .yarn/cache
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ vars.DOCKER_HUB_USER }}
           password: ${{ secrets.NPM_TOKEN }}
-          registry: docker.pkg.github.com
-          tags: "latest,${{ inputs.package_version }}"
-          buildargs: --build-arg NPM_TOKEN=${{secrets.NPM_TOKEN}} --build-arg PACKAGE_VERSION=${{inputs.package_version}}
 
-      - name: Publish to Registry Prerelease
-        if: "contains(inputs.package_version, 'beta')"
-        uses: elgohr/Publish-Docker-Github-Action@v4
+      - id: package-json
+        name: Read package.json
+        run: |
+          echo packageJSON=$(cat {{LOCATION}}/package.json) >> $GITHUB_OUTPUT
+
+      - name: Publish ${{needs.publish.outputs.versionType}} - ${{ github.ref_name }} 
+        if: contains(github.ref_name, 'develop') || contains(github.ref_name, 'staging')
+        uses: docker/build-push-action@v5
         with:
-          workdir: {{LOCATION}}
-          pre: echo ::save-state name=RELEASE_VERSION::$(echo ${GITHUB_REF:10})
-          name: clabroche/docker-registry/{{NAME_ROUTE}}
-          username: ${{ secrets.DOCKER_HUB_USER }}
-          password: ${{ secrets.NPM_TOKEN }}
-          registry: docker.pkg.github.com
-          tags: "prerelease,${{ inputs.package_version }}"
-          buildargs: --build-arg NPM_TOKEN=${{secrets.NPM_TOKEN}} --build-arg PACKAGE_VERSION=${{inputs.package_version}}
+          context: .
+          file: {{LOCATION}}/Dockerfile
+          tags: | 
+            ghcr.io/clabroche/docker-registry/{{NAME_ROUTE}}:${{ github.ref_name }} 
+          push: true
+          build-args: |
+            NPM_TOKEN=${{secrets.NPM_TOKEN}}
+            TURBO_TEAM=${{ vars.TURBO_TEAM }}
+            TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
+
+      - name: Publish Latest ${{needs.publish.outputs.versionType}} - ${{ github.ref_name }} 
+        if: contains(github.ref_name, 'master')
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: {{LOCATION}}/Dockerfile
+          tags: | 
+            ghcr.io/clabroche/docker-registry/{{NAME_ROUTE}}:latest
+            ghcr.io/clabroche/docker-registry/{{NAME_ROUTE}}:${{fromJson(steps.package-json.outputs.packageJson).version}}
+          push: true
+          build-args: |
+            NPM_TOKEN=${{secrets.NPM_TOKEN}}
+            TURBO_TEAM=${{ vars.TURBO_TEAM }}
+            TURBO_TOKEN=${{ secrets.TURBO_TOKEN }}
+
+      - name: Deploy to Coolify
+        if: hashFiles('{{LOCATION}}/.coolify.json') != ''
+        run: |
+          ROOT_LOCATION=$(pwd)
+          cd {{LOCATION}} && COOLIFY_URL="${{secrets.COOLIFY_URL}}" COOLIFY_APIKEY="${{secrets.COOLIFY_APIKEY}}" DOCKER_IMAGE=ghcr.io/clabroche/docker-registry/{{NAME_ROUTE}} ENVIRONMENT="${{ github.ref_name }}" node $ROOT_LOCATION/common/coolify/src/cli.js
